@@ -28,28 +28,55 @@
             * Disables use of inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
                 * Enable inline JS: add 'unsafe-inline' to default-src
         -->
-        <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *; img-src 'self' data: content:;">
+        <meta http-equiv="Content-Security-Policy" content="default-src * data: gap: https://ssl.gstatic.com; style-src * 'unsafe-inline'; media-src *">
         <meta name="format-detection" content="telephone=no">
         <meta name="msapplication-tap-highlight" content="no">
         <meta name="viewport" content="initial-scale=1, width=device-width, viewport-fit=cover">
         <link rel="stylesheet" type="text/css" href="css/index.css">
-        <link rel="stylesheet" type="text/css" href="semantic/dist/semantic.min.css">
+        <link rel="stylesheet" type="text/css" href="semantic/semantic.min.css">
         <title>TheNewsApp</title>
     </head>
     <body>
-        <div class="app">
-            <h1>Apache Cordova</h1>
-            <div class="ui icon input">
-                <input type="text" placeholder="Search...">
-                <i class="inverted circular search link icon"></i>
+        <div class="ui container">
+
+          <div class="ui top fixed inverted black icon menu main">
+            <!--<div class="item">
+              <div class="ui avatar image">
+                <img src="">
               </div>
-        </div>
+              <div class="content">
+                <div class="header">
+                  TheNewsApp
+                </div>
+              </div>
+            </div>-->
+            <div class="search item  full-width">
+              <div class="ui transparent inverted icon input">
+                <input type="text" placeholder="Search...">
+                <i class="search inverted link icon " id="searchButton"></i>
+              </div>
+            </div>
+            </div>
+
+            <!--
+            <form>
+                <div class="ui icon input full-width">
+                    <input type="text" placeholder="Search..." >
+                    <i class="inverted circular search link icon" id="searchButton"></i>
+                  </div>
+              </form>
+            -->
+          </div>
+          <div class="ui container newsFeedMargin">
+          <div id="newsFeed" class="ui link cards centered">
+                
+          </div>
+          </div>
+
         <script type="text/javascript" src="cordova.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
 <script
-  src="https://code.jquery.com/jquery-3.1.1.min.js"
-  integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
-  crossorigin="anonymous"></script>
-<script src="semantic/dist/semantic.min.js"></script>
+  src="js/jquery-3.5.1.min.js"></script>
+<script src="semantic/semantic.min.js"></script>
     </body>
 </html>

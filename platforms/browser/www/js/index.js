@@ -15,10 +15,10 @@
  * KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations
  * under the License.
- */
+ */  
 var app = {
     // Application Constructor
-    initialize: function() {
+    initialize: function () {
         document.addEventListener('deviceready', this.onDeviceReady.bind(this), false);
     },
 
@@ -26,12 +26,87 @@ var app = {
     //
     // Bind any cordova events here. Common events are:
     // 'pause', 'resume', etc.
-    onDeviceReady: function() {
+    onDeviceReady: function () {
         this.receivedEvent('deviceready');
+        window.open = cordova.InAppBrowser.open;
+        searchRequest();
+
+
+        var country = "at";
+
+        document.getElementById("searchButton").addEventListener("click", searchRequest);
+
+        function searchRequest() {
+
+            $.ajax({
+                type: 'GET',
+                url: 'http://newsapi.org/v2/top-headlines?country='+country+'&apiKey=***REMOVED***',
+                data: {
+                    get_param: 'value'
+                },
+                dataType: 'json',
+                crossDomain: true,
+                success: function (data) {
+
+                    $("#newsFeed").empty();
+                    $.each(data.articles, function (index, element) {
+
+                        var itemDiv = $("<div />", {
+                            "class": "ui card cardMargin",
+                        });
+
+                        var imageDiv = $("<div />", {
+                            "class": "image"
+                        });
+
+                        
+                        var imageTag= $("<img />", {
+                            src: element.urlToImage
+                        });
+
+                        imageDiv.append(imageTag);
+
+                        itemDiv.append(imageDiv);
+
+                        var contentDiv = $("<div />", {
+                            "class": "content"
+                        });
+
+                        var newsHeader = $("<a />", {
+                            "class": "header",
+                            text: element.title,
+                            onClick: "cordova.InAppBrowser.open('" + element.url + "', '_blank', 'location=yes zoom=no');"
+                        });
+
+                        var sourceDiv = $("<div />", {
+                            "class": "meta",
+                            text: element.source.name
+                        });
+
+                        var publishDateDiv = $("<div />", {
+                            "class": "meta",
+                            text: element.publishedAt
+                        });
+
+
+                        itemDiv.append(imageDiv);
+
+                        contentDiv.append(sourceDiv);
+                        contentDiv.append(newsHeader);
+                        contentDiv.append(publishDateDiv);
+                        itemDiv.append(contentDiv);
+
+                        $('#newsFeed').append(itemDiv);
+
+                    });
+                }
+            });
+        }
     },
 
     // Update DOM on a Received Event
-    receivedEvent: function(id) {
+    receivedEvent: function (id) {
+        /*
         var parentElement = document.getElementById(id);
         var listeningElement = parentElement.querySelector('.listening');
         var receivedElement = parentElement.querySelector('.received');
@@ -40,6 +115,7 @@ var app = {
         receivedElement.setAttribute('style', 'display:block;');
 
         console.log('Received Event: ' + id);
+    */
     }
 };
 
