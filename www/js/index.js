@@ -16,6 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */  
+
 var app = {
     // Application Constructor
     initialize: function () {
@@ -28,18 +29,48 @@ var app = {
     // 'pause', 'resume', etc.
     onDeviceReady: function () {
         this.receivedEvent('deviceready');
+
         //window.open = cordova.InAppBrowser.open;
-        var country = "at";
+        var country = "de";
         loadHeadLines(country);
 
 
+        $("#newsOverviewSettingsCountry").val(country);
+
+        $('.ui.dropdown')
+        .dropdown()
+      ;
+
+      $('.tag.example .ui.dropdown')
+        .dropdown({
+            allowAdditions: true
+        })
+        ;
+
+
         document.getElementById("searchButton").addEventListener("click", searchRequest);
+        document.getElementById("optionBarButton").addEventListener("click", openOptionBar);
+        document.getElementById("saveNewsOverviewSettings").addEventListener("click", saveNewsOverviewSettings);
+
+        
+
         $(document).on('keypress', 'input', function(event) {   
             var keycode = event.keyCode || event.which;
             if(keycode == '13') {
                 searchRequest();
             }
         });
+
+        function openOptionBar (){
+            $('.ui.sidebar')
+            .sidebar('toggle')
+          ;
+        }
+
+        function saveNewsOverviewSettings(){
+            country = $("#newsOverviewSettingsCountry").val();
+            loadHeadLines(country);
+        }
 
         function newFunction(data) {
             $("#newsFeed").empty();
@@ -99,7 +130,7 @@ var app = {
 
             $.ajax({
                 type: 'GET',
-                url: 'https://newsapi.org/v2/top-headlines?country='+country+'&apiKey=***REMOVED***',
+                url: 'http://newsapi.org/v2/top-headlines?country='+country+'&apiKey=***REMOVED***',
                 data: {
                     get_param: 'value'
                 },
@@ -114,20 +145,26 @@ var app = {
 
         function searchRequest() {
             var searchText = $("#searchField").val();
+            console.log(searchText);
 
-            $.ajax({
-                type: 'GET',
-                url: 'https://newsapi.org/v2/everything?q='+searchText+'&language=de&apiKey=***REMOVED***',
-                data: {
-                    get_param: 'value'
-                },
-                dataType: 'json',
-                crossDomain: true,
-                success: function (data) {
+            if(searchText !== "" || searchText){
+                $.ajax({
+                    type: 'GET',
+                    url: 'http://newsapi.org/v2/everything?q='+searchText+'&language=de&apiKey=***REMOVED***',
+                    data: {
+                        get_param: 'value'
+                    },
+                    dataType: 'json',
+                    crossDomain: true,
+                    success: function (data) {
+    
+                        newFunction(data);
+                    }
+                });
+                loadHeadLines(country);
+            }
 
-                    newFunction(data);
-                }
-            });
+
 
         }
     },

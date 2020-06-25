@@ -37,19 +37,21 @@
         <title>TheNewsApp</title>
     </head>
     <body>
+      <div class="ui sidebar inverted vertical menu">
+        <a class="item">
+          1
+        </a>
+        <a class="item">
+          2
+        </a>
+        <a class="item">
+          3
+        </a>
+      </div>
+      <div class="pusher">
         <div class="ui container">
 
           <div class="ui top fixed inverted black icon menu main">
-            <!--<div class="item">
-              <div class="ui avatar image">
-                <img src="">
-              </div>
-              <div class="content">
-                <div class="header">
-                  TheNewsApp
-                </div>
-              </div>
-            </div>-->
             <div class="search item  full-width">
               <div class="ui transparent inverted icon input">
                 <input type="text" id="searchField" placeholder="Search...">
@@ -58,20 +60,14 @@
             </div>
             </div>
 
-            <!--
-            <form>
-                <div class="ui icon input full-width">
-                    <input type="text" placeholder="Search..." >
-                    <i class="inverted circular search link icon" id="searchButton"></i>
-                  </div>
-              </form>
-            -->
           </div>
           <div class="ui container newsFeedMargin">
           <div id="newsFeed" class="ui link cards centered">
                 
           </div>
           </div>
+      </div>
+
 
         <script type="text/javascript" src="cordova.js"></script>
         <script type="text/javascript" src="js/index.js"></script>

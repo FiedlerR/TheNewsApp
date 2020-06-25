@@ -16,6 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */  
+
 var app = {
     // Application Constructor
     initialize: function () {
@@ -28,15 +29,104 @@ var app = {
     // 'pause', 'resume', etc.
     onDeviceReady: function () {
         this.receivedEvent('deviceready');
-        window.open = cordova.InAppBrowser.open;
-        searchRequest();
+
+        //window.open = cordova.InAppBrowser.open;
+        var country = "de";
+        loadHeadLines(country);
 
 
-        var country = "at";
+        $("#newsOverviewSettingsCountry").val(country);
+
+        $('.ui.dropdown')
+        .dropdown()
+      ;
+
+      $('.tag.example .ui.dropdown')
+        .dropdown({
+            allowAdditions: true
+        })
+        ;
+
 
         document.getElementById("searchButton").addEventListener("click", searchRequest);
+        document.getElementById("optionBarButton").addEventListener("click", openOptionBar);
+        document.getElementById("saveNewsOverviewSettings").addEventListener("click", saveNewsOverviewSettings);
 
-        function searchRequest() {
+        
+
+        $(document).on('keypress', 'input', function(event) {   
+            var keycode = event.keyCode || event.which;
+            if(keycode == '13') {
+                searchRequest();
+            }
+        });
+
+        function openOptionBar (){
+            $('.ui.sidebar')
+            .sidebar('toggle')
+          ;
+        }
+
+        function saveNewsOverviewSettings(){
+            country = $("#newsOverviewSettingsCountry").val();
+            loadHeadLines(country);
+        }
+
+        function newFunction(data) {
+            $("#newsFeed").empty();
+            $.each(data.articles, function (index, element) {
+
+                var itemDiv = $("<div />", {
+                    "class": "ui card cardMargin",
+                });
+
+                var imageDiv = $("<div />", {
+                    "class": "image"
+                });
+
+
+                var imageTag = $("<img />", {
+                    src: element.urlToImage
+                });
+
+                imageDiv.append(imageTag);
+
+                itemDiv.append(imageDiv);
+
+                var contentDiv = $("<div />", {
+                    "class": "content"
+                });
+
+                var newsHeader = $("<a />", {
+                    "class": "header",
+                    text: element.title,
+                    onClick: "cordova.InAppBrowser.open('" + element.url + "', '_blank', 'location=yes zoom=no');"
+                });
+
+                var sourceDiv = $("<div />", {
+                    "class": "meta",
+                    text: element.source.name
+                });
+
+                var publishDateDiv = $("<div />", {
+                    "class": "meta",
+                    text: element.publishedAt
+                });
+
+
+                itemDiv.append(imageDiv);
+
+                contentDiv.append(sourceDiv);
+                contentDiv.append(newsHeader);
+                contentDiv.append(publishDateDiv);
+                itemDiv.append(contentDiv);
+
+                $('#newsFeed').append(itemDiv);
+
+            });
+        }
+
+        function loadHeadLines(country) {
 
             $.ajax({
                 type: 'GET',
@@ -48,59 +138,34 @@ var app = {
                 crossDomain: true,
                 success: function (data) {
 
-                    $("#newsFeed").empty();
-                    $.each(data.articles, function (index, element) {
-
-                        var itemDiv = $("<div />", {
-                            "class": "ui card cardMargin",
-                        });
-
-                        var imageDiv = $("<div />", {
-                            "class": "image"
-                        });
-
-                        
-                        var imageTag= $("<img />", {
-                            src: element.urlToImage
-                        });
-
-                        imageDiv.append(imageTag);
-
-                        itemDiv.append(imageDiv);
-
-                        var contentDiv = $("<div />", {
-                            "class": "content"
-                        });
-
-                        var newsHeader = $("<a />", {
-                            "class": "header",
-                            text: element.title,
-                            onClick: "cordova.InAppBrowser.open('" + element.url + "', '_blank', 'location=yes zoom=no');"
-                        });
-
-                        var sourceDiv = $("<div />", {
-                            "class": "meta",
-                            text: element.source.name
-                        });
-
-                        var publishDateDiv = $("<div />", {
-                            "class": "meta",
-                            text: element.publishedAt
-                        });
-
-
-                        itemDiv.append(imageDiv);
-
-                        contentDiv.append(sourceDiv);
-                        contentDiv.append(newsHeader);
-                        contentDiv.append(publishDateDiv);
-                        itemDiv.append(contentDiv);
-
-                        $('#newsFeed').append(itemDiv);
-
-                    });
+                    newFunction(data);
                 }
             });
+        }
+
+        function searchRequest() {
+            var searchText = $("#searchField").val();
+            console.log(searchText);
+
+            if(searchText !== "" || searchText){
+                $.ajax({
+                    type: 'GET',
+                    url: 'http://newsapi.org/v2/everything?q='+searchText+'&language=de&apiKey=***REMOVED***',
+                    data: {
+                        get_param: 'value'
+                    },
+                    dataType: 'json',
+                    crossDomain: true,
+                    success: function (data) {
+    
+                        newFunction(data);
+                    }
+                });
+                loadHeadLines(country);
+            }
+
+
+
         }
     },
 

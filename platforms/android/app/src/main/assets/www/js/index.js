@@ -16,6 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */  
+
 var app = {
     // Application Constructor
     initialize: function () {
@@ -28,6 +29,9 @@ var app = {
     // 'pause', 'resume', etc.
     onDeviceReady: function () {
         this.receivedEvent('deviceready');
+        $('.ui.sidebar')
+  .sidebar('toggle')
+;
         //window.open = cordova.InAppBrowser.open;
         var country = "at";
         loadHeadLines(country);
@@ -99,7 +103,7 @@ var app = {
 
             $.ajax({
                 type: 'GET',
-                url: 'https://newsapi.org/v2/top-headlines?country='+country+'&apiKey=***REMOVED***',
+                url: 'http://newsapi.org/v2/top-headlines?country='+country+'&apiKey=***REMOVED***',
                 data: {
                     get_param: 'value'
                 },
@@ -117,7 +121,7 @@ var app = {
 
             $.ajax({
                 type: 'GET',
-                url: 'https://newsapi.org/v2/everything?q='+searchText+'&language=de&apiKey=***REMOVED***',
+                url: 'http://newsapi.org/v2/everything?q='+searchText+'&language=de&apiKey=***REMOVED***',
                 data: {
                     get_param: 'value'
                 },
