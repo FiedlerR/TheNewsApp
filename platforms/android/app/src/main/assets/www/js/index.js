@@ -28,19 +28,78 @@ var app = {
     // 'pause', 'resume', etc.
     onDeviceReady: function () {
         this.receivedEvent('deviceready');
-        window.open = cordova.InAppBrowser.open;
-        searchRequest();
-
-
+        //window.open = cordova.InAppBrowser.open;
         var country = "at";
+        loadHeadLines(country);
+
 
         document.getElementById("searchButton").addEventListener("click", searchRequest);
+        $(document).on('keypress', 'input', function(event) {   
+            var keycode = event.keyCode || event.which;
+            if(keycode == '13') {
+                searchRequest();
+            }
+        });
 
-        function searchRequest() {
+        function newFunction(data) {
+            $("#newsFeed").empty();
+            $.each(data.articles, function (index, element) {
+
+                var itemDiv = $("<div />", {
+                    "class": "ui card cardMargin",
+                });
+
+                var imageDiv = $("<div />", {
+                    "class": "image"
+                });
+
+
+                var imageTag = $("<img />", {
+                    src: element.urlToImage
+                });
+
+                imageDiv.append(imageTag);
+
+                itemDiv.append(imageDiv);
+
+                var contentDiv = $("<div />", {
+                    "class": "content"
+                });
+
+                var newsHeader = $("<a />", {
+                    "class": "header",
+                    text: element.title,
+                    onClick: "cordova.InAppBrowser.open('" + element.url + "', '_blank', 'location=yes zoom=no');"
+                });
+
+                var sourceDiv = $("<div />", {
+                    "class": "meta",
+                    text: element.source.name
+                });
+
+                var publishDateDiv = $("<div />", {
+                    "class": "meta",
+                    text: element.publishedAt
+                });
+
+
+                itemDiv.append(imageDiv);
+
+                contentDiv.append(sourceDiv);
+                contentDiv.append(newsHeader);
+                contentDiv.append(publishDateDiv);
+                itemDiv.append(contentDiv);
+
+                $('#newsFeed').append(itemDiv);
+
+            });
+        }
+
+        function loadHeadLines(country) {
 
             $.ajax({
                 type: 'GET',
-                url: 'http://newsapi.org/v2/top-headlines?country='+country+'&apiKey=***REMOVED***',
+                url: 'https://newsapi.org/v2/top-headlines?country='+country+'&apiKey=***REMOVED***',
                 data: {
                     get_param: 'value'
                 },
@@ -48,59 +107,28 @@ var app = {
                 crossDomain: true,
                 success: function (data) {
 
-                    $("#newsFeed").empty();
-                    $.each(data.articles, function (index, element) {
-
-                        var itemDiv = $("<div />", {
-                            "class": "ui card cardMargin",
-                        });
-
-                        var imageDiv = $("<div />", {
-                            "class": "image"
-                        });
-
-                        
-                        var imageTag= $("<img />", {
-                            src: element.urlToImage
-                        });
-
-                        imageDiv.append(imageTag);
-
-                        itemDiv.append(imageDiv);
-
-                        var contentDiv = $("<div />", {
-                            "class": "content"
-                        });
-
-                        var newsHeader = $("<a />", {
-                            "class": "header",
-                            text: element.title,
-                            onClick: "cordova.InAppBrowser.open('" + element.url + "', '_blank', 'location=yes zoom=no');"
-                        });
-
-                        var sourceDiv = $("<div />", {
-                            "class": "meta",
-                            text: element.source.name
-                        });
-
-                        var publishDateDiv = $("<div />", {
-                            "class": "meta",
-                            text: element.publishedAt
-                        });
-
-
-                        itemDiv.append(imageDiv);
-
-                        contentDiv.append(sourceDiv);
-                        contentDiv.append(newsHeader);
-                        contentDiv.append(publishDateDiv);
-                        itemDiv.append(contentDiv);
-
-                        $('#newsFeed').append(itemDiv);
-
-                    });
+                    newFunction(data);
                 }
             });
+        }
+
+        function searchRequest() {
+            var searchText = $("#searchField").val();
+
+            $.ajax({
+                type: 'GET',
+                url: 'https://newsapi.org/v2/everything?q='+searchText+'&language=de&apiKey=***REMOVED***',
+                data: {
+                    get_param: 'value'
+                },
+                dataType: 'json',
+                crossDomain: true,
+                success: function (data) {
+
+                    newFunction(data);
+                }
+            });
+
         }
     },
 

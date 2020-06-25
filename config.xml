@@ -8,7 +8,6 @@
         Apache Cordova Team
     </author>
     <content src="index.html" />
-      <icon src="assets/logo.png" platform="ios" width="57" height="57" density="mdpi" />
     <plugin name="cordova-plugin-whitelist" spec="1.1.0" />
     <access origin="*" />
     <allow-intent href="http://*/*" />
