@@ -118,3 +118,8 @@ h1 {
 .cardMargin {
     margin: 5px;
 }
+
+.cardTitle{
+    font-size: 1.4rem;
+    font-weight: 400;
+}

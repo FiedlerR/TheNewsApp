@@ -107,7 +107,7 @@ h1 {
 }
 
 .full-width{
- width: 100%;
+ width: 90%;
  margin-top: 10px;
 }
 
@@ -117,4 +117,9 @@ h1 {
 
 .cardMargin {
     margin: 5px;
+}
+
+.cardTitle{
+    font-size: 1.4rem;
+    font-weight: 400;
 }

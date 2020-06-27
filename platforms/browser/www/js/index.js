@@ -35,7 +35,16 @@ var app = {
         loadHeadLines(country);
 
 
+        /*
+        $('#optionBarButton').click(function (){
+            $("head link#theme").attr('href','https://www.w3schools.com/lib/w3-theme-green.css');
+         });
+         */
+
         $("#newsOverviewSettingsCountry").val(country);
+        setAvailableChips();
+
+
 
         $('.ui.dropdown')
         .dropdown()
@@ -49,7 +58,7 @@ var app = {
 
 
         document.getElementById("searchButton").addEventListener("click", searchRequest);
-        document.getElementById("optionBarButton").addEventListener("click", openOptionBar);
+       // document.getElementById("optionBarButton").addEventListener("click", openOptionBar);
         document.getElementById("saveNewsOverviewSettings").addEventListener("click", saveNewsOverviewSettings);
 
         
@@ -67,6 +76,15 @@ var app = {
           ;
         }
 
+        function setAvailableChips(){
+            var categories = ['general', 'entertainment', 'health', 'science','sports','technology'];
+            $.each(categories , function(index, val) { 
+                $('#availableChips').append('<button class="w3-btn w3-round-xxlarge w3-theme-l2 w3-margin-top w3-margin-right" onclick="w3_addChip(this,\''+val+'\')")>'+val+'</button>');
+            });
+        }
+
+   
+
         function saveNewsOverviewSettings(){
             country = $("#newsOverviewSettingsCountry").val();
             loadHeadLines(country);
@@ -77,15 +95,17 @@ var app = {
             $.each(data.articles, function (index, element) {
 
                 var itemDiv = $("<div />", {
-                    "class": "ui card cardMargin",
+                    "class": "w3-card-4 w3-margin w3-animate-bottom",
                 });
 
                 var imageDiv = $("<div />", {
-                    "class": "image"
+                    "style": "width:100%",
+                    "class": ""
                 });
 
 
                 var imageTag = $("<img />", {
+                    "style": "width:100%",
                     src: element.urlToImage
                 });
 
@@ -94,22 +114,22 @@ var app = {
                 itemDiv.append(imageDiv);
 
                 var contentDiv = $("<div />", {
-                    "class": "content"
+                    "class": "w3-container"
                 });
 
                 var newsHeader = $("<a />", {
-                    "class": "header",
+                    "class": "cardTitle",
                     text: element.title,
                     onClick: "cordova.InAppBrowser.open('" + element.url + "', '_blank', 'location=yes zoom=no');"
                 });
 
                 var sourceDiv = $("<div />", {
-                    "class": "meta",
+                    "class": "",
                     text: element.source.name
                 });
 
                 var publishDateDiv = $("<div />", {
-                    "class": "meta",
+                    "class": "",
                     text: element.publishedAt
                 });
 
