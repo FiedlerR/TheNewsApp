@@ -7,13 +7,14 @@
     <feature name="InAppBrowser">
         <param name="android-package" value="org.apache.cordova.inappbrowser.InAppBrowser" />
     </feature>
-    <name>HelloCordova</name>
+    <name>TheNewsApp</name>
     <description>
-        A sample Apache Cordova application that responds to the deviceready event.
+        A simple News app
     </description>
-    <author email="dev@cordova.apache.org" href="http://cordova.io">
-        Apache Cordova Team
+    <author email="www.secondmail1@gmail.com" href="http://cordova.io">
+        Rafael Fiedler
     </author>
+    <icon src="assets/logo.png" />
     <content src="index.html" />
     <access origin="*" />
     <allow-intent href="http://*/*" />

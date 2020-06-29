@@ -35,24 +35,27 @@
   <meta name="msapplication-tap-highlight" content="no">
   <meta name="viewport" content="initial-scale=1, width=device-width, viewport-fit=cover">
   <link rel="stylesheet" type="text/css" href="css/index.css">
-  <link rel="stylesheet" type="text/css" href="semantic/semantic.min.css">
-  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-  <link id="theme" rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-black.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="css/w3.css">
+  <link id="theme" rel="stylesheet" href="css/w3_themes/w3-theme-black.css">
+  <link href="fontawesome/css/all.css" rel="stylesheet">
   <title>TheNewsApp</title>
 </head>
 
 <body class="w3-theme-l5">
 
+<div id="loaderBar">
+  <div id="loader"></div>
+  </div>
+
+
   <!-- Sidebar -->
   <div class="w3-sidebar w3-bar-block w3-white w3-animate-left w3-theme" style="display:none;z-index:4;min-width:100%;"
     id="mySidebar">
-      <button class="w3-bar-item w3-button w3-large w3-border-bottom" onclick="w3_close()">Close &times;</button>
+    <button class="w3-bar-item w3-button w3-large w3-border-bottom" onclick="w3_close()">Close &times;</button>
     <div class="w3-bar-item w3-border-bottom">
       <h4>News Overview</h4>
       <h6>Country:</h6>
       <select class="w3-select w3-theme" style="border:none" id="newsOverviewSettingsCountry">
-        <option value="">Country</option>
         <option value="at">Austria</option>
         <option value="de">Germany</option>
         <option value="fr">French</option>
@@ -71,90 +74,83 @@
       </div>
       <button class="w3-btn w3-round w3-theme-l2 w3-margin-top  w3-block" id="saveNewsOverviewSettings">Save</button>
     </div>
+
+    <div class="w3-bar-item w3-border-bottom">
+      <h4>UI Settings</h4>
+      <h6>Theme:</h6>
+      <select class="w3-select w3-theme" style="border:none" id="uiSettingsTheme">
+        <option class="amberTheme" value="amber">amber</option>
+        <option class="blackTheme" value="black">black</option>
+        <option class="blueTheme" value="blue">blue</option>
+        <option class="blueGreyTheme" value="blue-grey">blue grey</option>
+        <option class="brownTheme" value="brown">brown</option>
+        <option class="cyanTheme" value="cyan">cyan</option>
+        <option class="darkGreyTheme" value="dark-grey">dark grey</option>
+        <option class="deepOrangeTheme" value="deep-orange">deep orange</option>
+        <option class="deepPurpleTheme" value="deep-purple">deep purple</option>
+        <option class="greenTheme" value="green">green</option>
+        <option class="greyTheme" value="grey">grey</option>
+        <option class="indigoTheme" value="indigo">indigo</option>
+        <option class="khakiTheme" value="khaki">khaki</option>
+        <option class="lightBlueTheme" value="light-blue">light blue</option>
+        <option class="lightGreenTheme" value="light-green">light green</option>
+        <option class="limeTheme" value="lime">lime</option>
+        <option class="orangeTheme" value="orange">orange</option>
+        <option class="pinkTheme" value="pink">pink</option>
+        <option class="purpleTheme" value="purple">purple</option>
+        <option class="redTheme" value="red">red</option>
+        <option class="tealTheme" value="teal">teal</option>
+        <option class="yellowTheme" value="yellow">yellow</option>
+      </select>
+
+      <button class="w3-btn w3-round w3-theme-l2 w3-margin-top  w3-block" id="saveUiSettings">Save</button>
+    </div>
+    <div class="w3-bar-item">
+      <button class="w3-btn w3-round w3-theme-l2 w3-margin-top  w3-block" id="clearAllSettings">Clear All Settings</button>
+    </div>
   </div>
+
+
+
+
+
 
   <!-- Overlay -->
   <div class="w3-overlay w3-animate-opacity" onclick="w3_close()" style="cursor:pointer" id="myOverlay"></div>
 
 
-  <div class="w3-top w3-theme">
+  <div class="w3-top w3-theme w3-animate-bottom ">
     <div class="w3-bar">
 
-      <a href="#" class="w3-bar-item w3-button" id="optionBarButton" onclick="w3_open()"><i class="fa fa-bars"></i></a>
+      <a href="#" class="w3-bar-item w3-button w3-large" id="optionBarButton" onclick="w3_open()"><i class="fa fa-bars"></i></a>
+      <a href="#" class="w3-bar-item w3-button w3-large" id="backButton" onclick="backToNewsOverview()"><i class="fa fa-arrow-left"></i></a>
 
       <a href="#" class="w3-bar-item w3-button w3-right" id="searchButton"><i class="fa fa-search"></i></a>
       <input type="text" class="w3-bar-item w3-input w3-theme w3-right" id="searchField" placeholder="Search..">
     </div>
   </div>
-  <div class="ui container newsFeedMargin">
+
+  <div id="categoryArea">
+</div>
+
+<div class="w3-card-4 w3-margin w3-animate-bottom">
+  <div class="w3-container" style="text-align: center;">
+    <div class="cardTitle" id="topHeadlines">Top Headlines</a>
+  </div>
+</div>
+</div>
+
+  <div class="w3-container w3-theme-l5">
     <div id="newsFeed">
 
     </div>
-    <!--
-      <div class="ui sidebar inverted vertical menu">
-        <div class="item">
-          <div class="header">News Overview</div>
-          <select class="ui dropdown"  id="newsOverviewSettingsCountry">
-            <option value="">Country</option>
-            <option value="at">Austria</option>
-            <option value="de">Germany</option>
-            <option value="fr">French</option>
-            <option value="gb">England</option>
-            <option value="us">USA</option>
-            <option value="ru">Russia</option>
-          </select>
-          <select name="categories" multiple="" class="ui fluid dropdown">
-            <option value="">categories</option>
-            <option value="general">general</option>
-            <option value="entertainment">entertainment</option>
-            <option value="health">health</option>
-            <option value="science">science</option>
-            <option value="sports">sports</option>
-            <option value="technology">technology</option>
-          </select>
-          <div class="ui checkbox">
-            <input type="checkbox" name="example">
-            <label>activate mixed newscards overview</label>
-          </div>
-          <button class="ui button centered" id="saveNewsOverviewSettings" >Save</button>
-        </div>
-        <a class="item">
-          2
-        </a>
-        <a class="item">
-          3
-        </a>
-      </div>
-      <div class="pusher">
-        <div class="ui container">
+  </div>
+  <div class="w3-theme-l2 " id="snackbar">Some text some message gfbhfghfgh gfgfhhg.</div>
 
-          <div class="ui top fixed inverted black icon menu main">
-            <div class="item">
-              <i class="bars inverted icon" id="optionBarButton"></i>
-            </div>
-
-            <div class="search right item ">
-              <div class="ui transparent inverted icon input">
-                <input type="text" id="searchField" placeholder="Search...">
-                <i class="search inverted link icon " id="searchButton"></i>
-              </div>
-            </div>
-            </div>
-
-          </div>
-          <div class="ui container newsFeedMargin">
-          <div id="newsFeed" class="ui link cards centered">
-                
-          </div>
-          </div>
-      </div>-->
-
-
-    <script type="text/javascript" src="cordova.js"></script>
-    <script type="text/javascript" src="js/index.js"></script>
-    <script type="text/javascript" src="w3CSS/w3CSS.js"></script>
-    <script src="js/jquery-3.5.1.min.js"></script>
-    <script src="semantic/semantic.min.js"></script>
+  <script type="text/javascript" src="cordova.js"></script>
+  <script type="text/javascript" src="js/index.js"></script>
+  <script type="text/javascript" src="w3CSS/w3CSS.js"></script>
+  <script src="js/jquery-3.5.1.min.js"></script>
 
 </body>
 
