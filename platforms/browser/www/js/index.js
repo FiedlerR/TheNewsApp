@@ -180,7 +180,13 @@ function saveUiSettings() {
 
 function buildNewsFeed(data,category) {
     $("#newsFeed").empty();
+    var months = ["JAN", "FEB", "MAR","APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
+
     $.each(data.articles, function (index, element) {
+
+
+        let current_datetime = new Date(element.publishedAt);
+        let formatted_date = current_datetime.getDate() + "-" + months[current_datetime.getMonth()] + "-" + current_datetime.getFullYear();
 
         var itemDiv = $("<div />", {
             "class": "w3-card-4 w3-margin w3-animate-bottom",
@@ -218,7 +224,7 @@ function buildNewsFeed(data,category) {
 
         var publishDateDiv = $("<div />", {
             "class": "",
-            text: element.publishedAt
+            text: formatted_date
         });
 
 
@@ -232,7 +238,6 @@ function buildNewsFeed(data,category) {
         if(category === null){
             $('#topHeadlines').text("Top Headlines");
         }else{
-            console.log("!!!!!!!!!!!!!!!!!!");
             $('#topHeadlines').text("Top "+category+" Headlines");
         }
         $('#newsFeed').append(itemDiv);
