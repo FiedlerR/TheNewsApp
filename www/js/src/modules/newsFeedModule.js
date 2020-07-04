@@ -1,4 +1,4 @@
-const API_KEY = "***REMOVED***";
+const API_KEY = "API_KEY";
 
 var buildCategoryUI = function(country,categories,uiModule) {
   $("#categoryArea").empty();

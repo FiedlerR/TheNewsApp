@@ -277,7 +277,7 @@ function loadHeadLines(country) {
 
     $.ajax({
         type: 'GET',
-        url: 'http://newsapi.org/v2/top-headlines?country=' + country + '&apiKey=***REMOVED***',
+        url: 'http://newsapi.org/v2/top-headlines?country=' + country + '&apiKey=1b570dd2a545435eaf5052fda8513665',
         data: {
             get_param: 'value'
         },
@@ -296,7 +296,7 @@ function searchRequest() {
     if (searchText !== "" || searchText) {
         $.ajax({
             type: 'GET',
-            url: 'http://newsapi.org/v2/everything?q=' + searchText + '&language=de&apiKey=***REMOVED***',
+            url: 'http://newsapi.org/v2/everything?q=' + searchText + '&language=de&apiKey=1b570dd2a545435eaf5052fda8513665',
             data: {
                 get_param: 'value'
             },
@@ -316,7 +316,7 @@ function searchRequest() {
 function loadCategoryHeadlines(category) {
     $.ajax({
         type: 'GET',
-        url: 'http://newsapi.org/v2/top-headlines?country=' + country + '&category=' + category + '&apiKey=***REMOVED***',
+        url: 'http://newsapi.org/v2/top-headlines?country=' + country + '&category=' + category + '&apiKey=1b570dd2a545435eaf5052fda8513665',
         data: {
             get_param: 'value'
         },
