@@ -24,7 +24,7 @@ var closeSettingsPage = function () {
  */
 var addChipToSelectedCategories = function (category) {
   //category chip template
-  var chip = '<button class="w3-btn w3-round-xxlarge w3-theme-l2 w3-margin-top w3-margin-right"  id="selectedCategoryChip' + category + '">' + category + ' &times;</button>';
+  var chip = '<button class="w3-btn w3-round-xxlarge w3-theme-l2 w3-margin-top w3-margin-right"  id="selectedCategoryChip' + category + '" data-value="' + category + '" >' + category + ' &times;</button>';
   document.getElementById("selectedChips").insertAdjacentHTML('beforeend', chip); // add category chip template to selected chip area
   $("#selectedCategoryChip" + category).click(function () { // add event listener to the added category chip
     addChipToAvailableCategories(category);
@@ -38,7 +38,7 @@ var addChipToSelectedCategories = function (category) {
  */
 var addChipToAvailableCategories = function (category) {
   //category chip template
-  var chip = '<button class="w3-btn w3-round-xxlarge w3-theme-l2 w3-margin-top w3-margin-right" id="availableCategoryChip' + category + '" >' + category + '</button>';
+  var chip = '<button class="w3-btn w3-round-xxlarge w3-theme-l2 w3-margin-top w3-margin-right" id="availableCategoryChip' + category + '" data-value="' + category + '" >' + category + '</button>';
   document.getElementById("availableChips").insertAdjacentHTML('beforeend', chip); // add category chip template to available chip area
   $("#availableCategoryChip" + category).click(function () { // add event listener to the added category chip
     addChipToSelectedCategories(category);
@@ -82,7 +82,7 @@ var showMessage = function (message) {
 var getSelectedCategoriyChips = function () {
   categoriesTemp = Array(); // prepare new empty array
   $("#selectedChips :button").each(function () { // find all category chips in selected categories area
-    categoriesTemp.push($(this).text()); // add each category to the array
+    categoriesTemp.push($(this).data("value")); // add each category to the array
   });
   return categoriesTemp;
 }
@@ -145,6 +145,14 @@ var setSelectedCategoryChips = function (categories) {
 }
 
 /**
+ * @desc get searchText from user interface
+ * @returns string - text from searchfield
+ */
+var getSearchText = function () {
+  return $("#searchField").val();
+}
+
+/**
  *all module exported functions
  */
 module.exports = {
@@ -159,5 +167,6 @@ module.exports = {
   hideSettingsButton,
   hideBackButton,
   showMessage,
-  setSelectedCategoryChips
+  setSelectedCategoryChips,
+  getSearchText
 }
