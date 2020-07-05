@@ -1,191 +1,266 @@
-/*
- * Licensed to the Apache Software Foundation (ASF) under one
- * or more contributor license agreements.  See the NOTICE file
- * distributed with this work for additional information
- * regarding copyright ownership.  The ASF licenses this file
- * to you under the Apache License, Version 2.0 (the
- * "License"); you may not use this file except in compliance
- * with the License.  You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing,
- * software distributed under the License is distributed on an
- * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- * KIND, either express or implied.  See the License for the
- * specific language governing permissions and limitations
- * under the License.
- */
-
- 
-h1 {
-    font-size:24px;
-    font-weight:normal;
-    margin:0px;
-    overflow:visible;
-    padding:0px;
-    text-align:center;
-}
-
-.event {
-    border-radius:4px;
-    -webkit-border-radius:4px;
-    color:#FFFFFF;
-    font-size:12px;
-    margin:0px 30px;
-    padding:2px 0px;
-}
-
-.event.listening {
-    background-color:#333333;
-    display:block;
-}
-
-.event.received {
-    background-color:#4B946A;
-    display:none;
-}
-
-@keyframes fade {
-    from { opacity: 1.0; }
-    50% { opacity: 0.4; }
-    to { opacity: 1.0; }
-}
- 
-@-webkit-keyframes fade {
-    from { opacity: 1.0; }
-    50% { opacity: 0.4; }
-    to { opacity: 1.0; }
-}
- 
-.blink {
-    animation:fade 3000ms infinite;
-    -webkit-animation:fade 3000ms infinite;
-}
-
-.full-width{
- width: 90%;
- margin-top: 10px;
-}
-
-.newsFeedMargin{
-    margin-top: 80px;
-}
-
-.cardMargin {
-    margin: 5px;
-}
-
-.cardTitle{
-    font-size: 1.4rem;
-    font-weight: 400;
-}
+/**************
+ * custom CSS *
+ **************/
 
 :focus {
-    outline: none;
-    }
+  outline: none;
+}
 
+h1 {
+  font-size: 24px;
+  font-weight: normal;
+  margin: 0px;
+  overflow: visible;
+  padding: 0px;
+  text-align: center;
+}
+
+/***********
+ * Menubar *
+ ***********/
+#backButton {
+  display: none;
+}
+
+/***************
+ * card design *
+ ***************/
+.cardTitle {
+  font-size: 1.4rem;
+  font-weight: 400;
+}
+
+/******************************
+ * CSS for the loading Screen *
+ ******************************/
 #loaderBar {
-    position: absolute;
-    z-index: 6;
-    width: 100%;
-    height: 100%;
-    background-color: gray;
-  }
+  position: absolute;
+  z-index: 6;
+  width: 100%;
+  height: 100%;
+  background-color: gray;
+}
 
-
-  /* Center the loader */
 #loader {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    z-index: 1;
-    width: 150px;
-    height: 150px;
-    margin: -75px 0 0 -75px;
-    border: 16px solid #f3f3f3;
-    border-radius: 50%;
-    border-top: 16px solid black;
-    width: 120px;
-    height: 120px;
-    -webkit-animation: spin 2s linear infinite;
-    animation: spin 2s linear infinite;
-  }
-  
-  @-webkit-keyframes spin {
-    0% { -webkit-transform: rotate(0deg); }
-    100% { -webkit-transform: rotate(360deg); }
-  }
-  
-  @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: 1;
+  width: 150px;
+  height: 150px;
+  margin: -75px 0 0 -75px;
+  border: 16px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 16px solid black;
+  width: 120px;
+  height: 120px;
+  -webkit-animation: spin 2s linear infinite;
+  animation: spin 2s linear infinite;
+}
+
+@-webkit-keyframes spin {
+  0% {
+    -webkit-transform: rotate(0deg);
   }
 
-  #messageBar {
-    visibility: hidden;
-    min-width: 250px;
-    background-color: #333;
-    color: #fff;
-    text-align: center;
-    border-radius: 2px;
-    padding: 16px;
-    position: fixed;
-    z-index: 10;
+  100% {
+    -webkit-transform: rotate(360deg);
+  }
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/***********************
+ * CSS for the message Bar *
+ ***********************/
+#messageBar {
+  visibility: hidden;
+  min-width: 250px;
+  background-color: #333;
+  color: #fff;
+  text-align: center;
+  border-radius: 2px;
+  padding: 16px;
+  position: fixed;
+  z-index: 10;
+  bottom: 30px;
+  font-size: 17px;
+  width: 100%;
+}
+
+/* control animation message Bar */
+#messageBar.show {
+  visibility: visible;
+  -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+  animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+
+@-webkit-keyframes fadein {
+  from {
+    bottom: 0;
+    opacity: 0;
+  }
+
+  to {
     bottom: 30px;
-    font-size: 17px;
-    width: 100%;
+    opacity: 1;
   }
-  
-  #messageBar.show {
-    visibility: visible;
-    -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
-    animation: fadein 0.5s, fadeout 0.5s 2.5s;
-  }
-  
-  @-webkit-keyframes fadein {
-    from {bottom: 0; opacity: 0;} 
-    to {bottom: 30px; opacity: 1;}
-  }
-  
-  @keyframes fadein {
-    from {bottom: 0; opacity: 0;}
-    to {bottom: 30px; opacity: 1;}
-  }
-  
-  @-webkit-keyframes fadeout {
-    from {bottom: 30px; opacity: 1;} 
-    to {bottom: 0; opacity: 0;}
-  }
-  
-  @keyframes fadeout {
-    from {bottom: 30px; opacity: 1;}
-    to {bottom: 0; opacity: 0;}
+}
+
+@keyframes fadein {
+  from {
+    bottom: 0;
+    opacity: 0;
   }
 
-  #backButton{
-    display: none;
+  to {
+    bottom: 30px;
+    opacity: 1;
+  }
+}
+
+@-webkit-keyframes fadeout {
+  from {
+    bottom: 30px;
+    opacity: 1;
   }
 
-.amberTheme {color:#000 !important; background-color:#ffc107 !important}
-.blackTheme {color:#fff !important; background-color:#000000 !important}
-.blueTheme {color:#fff !important; background-color:#2196f3 !important}
-.blueGreyTheme {color:#fff !important; background-color:#607d8b !important}
-.brownTheme {color:#fff !important; background-color:#795548 !important}
-.cyanTheme {color:#fff !important; background-color:#00bcd4 !important}
-.darkGreyTheme {color:#fff !important; background-color:#616161 !important}
-.deepOrangeTheme {color:#fff !important; background-color:#ff5722 !important}
-.deepPurpleTheme {color:#fff !important; background-color:#673ab7 !important}
-.greenTheme {color:#fff !important; background-color:#4caf50 !important}
-.greyTheme {color:#fff !important; background-color:#9e9e9e !important}
-.indigoTheme {color:#fff !important; background-color:#3f51b5 !important}
-.khakiTheme {color:#000 !important; background-color:#f0e68c !important}
-.lightBlueTheme {color:#000 !important; background-color:#87ceeb !important}
-.lightGreenTheme {color:#fff !important; background-color:#8bc34a !important}
-.limeTheme {color:#000 !important; background-color:#cddc39 !important}
-.orangeTheme {color:#000 !important; background-color:#ff9800 !important}
-.pinkTheme {color:#fff !important; background-color:#e91e63 !important}
-.purpleTheme {color:#fff !important; background-color:#9c27b0 !important}
-.redTheme {color:#fff !important; background-color:#f44336 !important}
-.tealTheme {color:#fff !important; background-color:#009688 !important}
-.yellowTheme {color:#000 !important; background-color:#ffeb3b !important}
+  to {
+    bottom: 0;
+    opacity: 0;
+  }
+}
+
+@keyframes fadeout {
+  from {
+    bottom: 30px;
+    opacity: 1;
+  }
+
+  to {
+    bottom: 0;
+    opacity: 0;
+  }
+}
+
+/********************************************
+ * theme colors for theme settings dropdown *
+ ********************************************/
+
+.amberTheme {
+  color: #000 !important;
+  background-color: #ffc107 !important
+}
+
+.blackTheme {
+  color: #fff !important;
+  background-color: #000000 !important
+}
+
+.blueTheme {
+  color: #fff !important;
+  background-color: #2196f3 !important
+}
+
+.blueGreyTheme {
+  color: #fff !important;
+  background-color: #607d8b !important
+}
+
+.brownTheme {
+  color: #fff !important;
+  background-color: #795548 !important
+}
+
+.cyanTheme {
+  color: #fff !important;
+  background-color: #00bcd4 !important
+}
+
+.darkGreyTheme {
+  color: #fff !important;
+  background-color: #616161 !important
+}
+
+.deepOrangeTheme {
+  color: #fff !important;
+  background-color: #ff5722 !important
+}
+
+.deepPurpleTheme {
+  color: #fff !important;
+  background-color: #673ab7 !important
+}
+
+.greenTheme {
+  color: #fff !important;
+  background-color: #4caf50 !important
+}
+
+.greyTheme {
+  color: #fff !important;
+  background-color: #9e9e9e !important
+}
+
+.indigoTheme {
+  color: #fff !important;
+  background-color: #3f51b5 !important
+}
+
+.khakiTheme {
+  color: #000 !important;
+  background-color: #f0e68c !important
+}
+
+.lightBlueTheme {
+  color: #000 !important;
+  background-color: #87ceeb !important
+}
+
+.lightGreenTheme {
+  color: #fff !important;
+  background-color: #8bc34a !important
+}
+
+.limeTheme {
+  color: #000 !important;
+  background-color: #cddc39 !important
+}
+
+.orangeTheme {
+  color: #000 !important;
+  background-color: #ff9800 !important
+}
+
+.pinkTheme {
+  color: #fff !important;
+  background-color: #e91e63 !important
+}
+
+.purpleTheme {
+  color: #fff !important;
+  background-color: #9c27b0 !important
+}
+
+.redTheme {
+  color: #fff !important;
+  background-color: #f44336 !important
+}
+
+.tealTheme {
+  color: #fff !important;
+  background-color: #009688 !important
+}
+
+.yellowTheme {
+  color: #000 !important;
+  background-color: #ffeb3b !important
+}

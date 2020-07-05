@@ -104,11 +104,21 @@ var getSelectedTheme = function () {
 }
 
 /**
+ * @desc set dropdown value in theme setting
+ * @param string theme - them to be set
+ */
+var setTheme = function (theme) {
+  $("#uiSettingsTheme").val(theme);
+}
+
+
+/**
  * @desc activate given theme
  * @param string theme - theme to be activated
  */
 var activateTheme = function (theme) {
   $('#theme').attr('href', 'css/w3_themes/w3-theme-' + theme + '.css');
+  setTheme(theme);
 }
 
 /**
